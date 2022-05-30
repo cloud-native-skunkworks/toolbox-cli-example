@@ -40,17 +40,22 @@ func Execute() {
 	}
 }
 
+func setDefaults() {
+	viper.SetDefault("port", "8080")
+}
+
 func init() {
 	cobra.OnInitialize(initConfig)
 
+	setDefaults()
+
+	fmt.Println("name:", viper.Get("name"))
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-
 	// Add my subcommand palette
 	rootCmd.AddCommand(info.InfoCmd)
 	rootCmd.AddCommand(net.NetCmd)
-
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.toolbox.yaml)")
 
 	// Cobra also supports local flags, which will only run
